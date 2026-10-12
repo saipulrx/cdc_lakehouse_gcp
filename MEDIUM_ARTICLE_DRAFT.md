@@ -36,6 +36,10 @@ Our pipeline consists of four layers:
    - **Pattern A (`v_orders_current`):** A real-time SQL View using `QUALIFY ROW_NUMBER()` that resolves the latest state per primary key on the fly.
    - **Pattern B (`lakehouse_silver.orders`):** A materialized Apache Iceberg table updated via BigQuery's native ACID `MERGE INTO` DML, with exported Iceberg V2 metadata (`metadata.json` & Avro manifest lists) ready for Apache Spark, Trino, or PyIceberg.
 
+![CDC Sequence Diagram](./screenshots/cdc_sequence_diagram.jpg)
+> **🖼️ [GAMBAR SEQUENCE DIAGRAM DI SINI]:** Upload file `./screenshots/cdc_sequence_diagram.jpg` di sini.
+> - **Caption Gambar untuk Medium:** *End-to-end CDC transaction lifecycle from Cloud SQL PostgreSQL WAL to Bronze and Silver Apache Iceberg tables on Google Cloud Storage.*
+
 ---
 
 ## Step 1: Provisioning the Open Lakehouse Foundation & Cloud SQL
@@ -419,6 +423,9 @@ gcloud storage ls --recursive "gs://${GCS_BUCKET}/"
 ---
 
 ## When to Use Pattern A (View) vs. Pattern B (Materialized Iceberg `MERGE`)
+
+![Pattern Comparison Table](./screenshots/pattern_comparison_table.jpg)
+> **🖼️ [GAMBAR TABEL PERBANDINGAN DI SINI]:** Upload file `./screenshots/pattern_comparison_table.jpg` di sini.
 
 ```text
 +-----------------------------------+------------------------------------------+--------------------------------------------------------+
